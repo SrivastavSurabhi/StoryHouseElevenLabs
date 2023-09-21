@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+<title>Story House</title>
+<meta charset="UTF-8" />
+<meta name="keywords" content="Story House" />
+<meta name="description" content="Story House" />
+<meta name="author" content="Story House" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- datatable -->
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive.dataTables.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/buttons.dataTables.min.css' %}">
+<!-- end -->
+
+<!-- css-files -->
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+
+
+<div class="login">
+    <img src="{% static 'images/logo.svg' %}">
+    <h1>Welcome!</h1>
+
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="content-form">
+                <p>Request New Password</p>
+                <p class="small-text">Enter your email to reset your password</p>
+                <form method="post" action="{% url 'forgot_password' %}" id="forget_password_form">
+                    {% csrf_token %}
+                  <div class="input-group mb-2 mt-3 mr-sm-2">
+                      <span class="input-group-text" id="basic-addon1"><img src="{% static 'images/email.svg' %}"></span>
+                      <input type="text" class="form-control" placeholder="Email" name="email">
+                  </div>
+                  <a ><button type="button" id="submit" class="btn btn-primary new-btn">Continue</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Js-files -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<!-- Js-end-->
+<script>
+
+        jQuery('#submit').on('click',function(){
+            email = $('input[name="email"]').val()
+            if (email) {
+               token = document.getElementsByName("csrfmiddlewaretoken")[0].value
+               data = new FormData($('#forget_password_form').get(0));
+               url = $(this).attr('action')
+               $.ajax({
+                    method: "post",
+                    headers: {'X-CSRFToken': token},
+                    url: url,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success:function(data) {
+                        oneNotificationAtOnce(data.message, data.tag);
+                    },
+                    error: function() {
+                        oneNotificationAtOnce("There is some issue. Please try again.");
+                    }
+                });
+            }
+            else{
+                oneNotificationAtOnce("Please enter email.");
+            }
+        });
+
+        
+    function oneNotificationAtOnce(message, status='error'){
+        $('.notifyjs-corner').empty();
+        $.notify(message, status);
+    }
+
+</script>
+</body>
+</html>

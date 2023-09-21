@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel=¨stylesheet¨ type=¨text/css¨ href=¨https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css¨>
+    <link rel=¨stylesheet¨ type=¨text/css¨ href=¨https://cdn.datatables.net/select/1.6.2/css/select.dataTables.min.css¨>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.min.js"></script>
+
+</head>
+<body>
+        <div class="container">
+            <h1>Login</h1>
+            <hr>
+            <label for="email">
+                <input type="email" id="email" placeholder="Email" required/>
+            </label>
+            <label for="password">
+                <input type="password" id="password" placeholder="Password" required/>
+            </label>
+            <label for="submit">
+                <input type="submit" id="submit" value="Login">
+            </label>
+        </div>
+    </body>
+</html>

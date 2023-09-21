@@ -1,0 +1,71 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
+
+                <div class="p-4">
+                    <div class="title-area mb-3 mb-lg-5">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-pdf-tab" data-bs-toggle="tab" data-bs-target="#nav-pdffiles" type="button">PDF Files</button>
+                                <button class="nav-link" id="nav-ebook-tab" data-bs-toggle="tab" data-bs-target="#nav-ebook" type="button">EBook Files</button>
+                            </div>
+                        </nav>
+                        <div class="btn-group">
+                            <button class="generate_html showmodal" disabled>
+                                Generate HTML & Text
+                                <span><img src="{% static 'images/cog.svg' %}"></span>
+                            </button>
+                            <button class="upload" data-bs-toggle="modal" data-bs-target="#uploadmodal">
+                                Upload File
+                                <span><img src="{% static 'images/upload.svg' %}"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-pdffiles" role="tabpanel" aria-labelledby="nav-pdf-tab">
+                            <!-- table-start -->
+                            <table id="newtable" class="display responsive nowrap myTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        {% comment %} <th></th> {% endcomment %}
+                                        <th></th>
+                                        <th>Sr.No.</th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                               
+                                </tbody>
+                            </table>
+                            <!-- table-end -->
+                        </div>
+                        <div class="tab-pane fade" id="nav-ebook" role="tabpanel" aria-labelledby="nav-ebook-tab">
+                            <!-- table-start -->
+                            <table id="newtable2" class="display responsive nowrap myTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        {% comment %} <th></th> {% endcomment %}
+                                        <th></th>
+                                        <th>Sr.No.</th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                </tbody>
+                            </table>
+                            <!-- table-end -->
+                        </div>
+                    </div>
+                </div>
+
+
+
+{% endblock content %}
+

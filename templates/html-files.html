@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load static %}
+      <div class="p-4">
+        <div class="title-area mb-5">
+          <h2>HTML Files</h2>
+          <div class="btn-group customstyle">
+            {% comment %} <button class="create_summary" disabled>
+                Create Summaries                
+                <span><img src="{% static 'images/edit.svg' %}"></span>
+            </button>
+            <p class="words_note d-none">The file can only be summarized if it contains 3000 or fewer words.</p> {% endcomment %}
+            {% comment %} <button class="generate_html showmodal" disabled>
+                Generate HTML
+                <span><img src="{% static 'images/cog.svg' %}"></span>
+            </button>
+            <button class="upload" data-bs-toggle="modal" data-bs-target="#uploadmodal">
+                Upload File
+                <span><img src="{% static 'images/upload.svg' %}"></span>
+            </button> {% endcomment %}
+        </div>
+        </div>
+
+        <!-- table-start -->
+        <table id="newtable3" class="display responsive nowrap myTable" width="100%">
+            <thead>
+                <tr>
+                    {% comment %} <th></th> {% endcomment %}
+                    <th>Sr.No.</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        <!-- table-end -->
+      </div>
+ 
+
+      {% endblock content %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock extrastyle %}
+    <div class="profile-card">
+
+        <div class="profile_wrapper">
+          <div class="profile">
+            <div class="content">
+              <div class="flex-title">
+                <h1>Edit Profile</h1>
+                <div class="editicon"><i class="fa fa-pencil"></i></div>
+              </div>
+              <form action="">
+                <!-- Photo -->
+                <fieldset>
+                  <div class="grid-35">
+                    <label >Your Photo</label>
+                  </div>
+                  <div class="grid-65">
+                    <div class="relativebox">
+                    <span class="photo" title="Upload your Avatar!">
+                      {% if request.user.userprofile.avatar %}
+                          <img src="{% get_media_prefix %}{{request.user.userprofile.avatar}}">
+                      {% else %}
+                          <img src="{% static 'images/profile.jpg' %}">
+                      {% endif %}
+                    </span>
+                    <div class="editable">
+
+                      <label class="pencilfile" for="addprofile">
+                        <i class="fa fa-pencil"></i>
+                      </label>
+                      <input type="file" accept=".jpg, .jpeg, .png" id="addprofile" />
+
+                    </div>
+                    </div>
+<!--                    <input type="file" id="imageUpload" class="btn" />-->
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="grid-35">
+                    <label for="fname">User Name</label>
+                  </div>
+                  <div class="grid-65">
+                        <h3 class="user_name">{{request.user}}</h3>
+                    <input type="text" id="fname" class="editable_user_name" tabindex="1" value="{{request.user}}" />
+                  </div>
+                </fieldset>
+
+                <fieldset class="update_buttons">
+                  <input type="button" class="Btn cancel" value="Cancel" />
+                  <input type="button" class="Btn save" value="Save Changes" />
+                </fieldset>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+<!--        <div class="avatar-upload">-->
+<!--            <div class="avatar-edit">-->
+<!--                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />-->
+<!--                <label for="imageUpload"></label>-->
+<!--            </div>-->
+<!--            <div class="avatar-preview">-->
+<!--                <div id="imagePreview" style="background-image: url('http://i.pravatar.cc/500?img=7');">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+
+
+
+
+<!--      <div class="image">-->
+<!--       <img src="https://tinypic.host/images/2022/12/19/img_avatar.png" alt="" class="profile-img" />-->
+<!--      </div>-->
+<!--      <div class="text-data">-->
+<!--        <span class="name">{{request.user}}</span>-->
+
+<!--      </div>-->
+<!--        <button type="button" class="btn btn-primary update_profile_btn">Update</button>-->
+<!--    </div>-->
+{% endblock content %}
+

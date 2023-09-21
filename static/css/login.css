@@ -1,0 +1,56 @@
+.login {
+    background: #007CA6;
+    background: -webkit-linear-gradient(#1A3AAF 50%, #ffff 50%);
+    padding: 6rem 0px;
+    text-align: center;
+}
+.login img {
+    max-width: 300px;
+}
+.login h1 {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.login p {
+    font-size: 18px;
+    color: #fff;
+    max-width: 500px;
+    width: 100%;
+    margin: 15px auto 0;
+    line-height: normal;
+}
+.content-form {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+}
+
+.content-form p {
+    text-align: center;
+    font-size: 26px;
+    color: #000;
+    font-weight: 700;
+}
+.content-form .small-text {
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 8px;
+}
+.content-form .form-control {
+    height: 50px;
+}
+.content-form .input-group-text {
+    padding: 14px;
+}
+.content-form .new-btn{
+    background-color: #1A3AAF;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.forgot a{color: #1A3AAF; font-weight: 600;}
+

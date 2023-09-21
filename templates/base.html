@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+<title>Story House</title>
+<meta charset="UTF-8" />
+<meta name="keywords" content="Story House" />
+<meta name="description" content="Story House" />
+<meta name="author" content="Story House" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- datatable -->
+{% comment %} <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}"> {% endcomment %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="{% static 'css/responsive.dataTables.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/buttons.dataTables.min.css' %}">
+<!-- end -->
+
+<!-- css-files -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" rel="stylesheet" />
+<!-- Js-files -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+<!-- Js-end-->
+{% block extrastyle %}
+{% endblock extrastyle %}
+</head>
+<body>
+
+    <div class="parent-loader" style="display: none;">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div> 
+
+    {% if request.user.is_authenticated %}
+    <div class="mainwrapper">
+        <!-- sidebar-start -->
+        <aside class="sidebar">
+            <div class="d-flex align-items-center justify-content-between p-3 py-4">
+                <div class="logo">
+                    <img src="{% static 'images/diamond-logo.png' %}">
+                    <span>Story House</span>
+                </div>
+                <button type="button" class="btn-close closesidebar d-block d-md-none"></button>
+            </div>
+            <div class="menubar">
+                <ul class="menu">
+                    <li>
+                        <a href="{% url 'home' %}" class="auth">
+                            <span class="material-symbols"><img src="{% static 'images/pdf-icon.svg' %}"></span>
+                            <span class="title">Source Files</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'html' %}" class="html">
+                            <span class="material-symbols"><img src="{% static 'images/html-icon.svg' %}"></span>
+                            <span class="title">HTML Files</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'mp3' %}" class="mp">
+                            <span class="material-symbols"><img src="{% static 'images/mp3-icon.svg' %}"></span>
+                            <span class="title">Mp3 Files</span>
+                        </a>
+                    </li>
+                    {% comment %} <li>
+                        <a href="{% url 'summary' %}" class="summary">
+                            <span class="material-symbols"><img src="{% static 'images/sum-icon.svg' %}"></span>
+                            <span class="title">Summaries</span>
+                        </a>
+                    </li> {% endcomment %}
+                    <li>
+                        <a href="{% url 'public' %}" class="public">
+                            <span class="material-symbols"><img src="{% static 'images/sum-icon.svg' %}"></span>
+                            <span class="title">Public Files</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'text-files' %}" class="textfiles">
+                            <span class="material-symbols"><img src="{% static 'images/pdf-icon.svg' %}"></span>
+                            <span class="title">Text Files</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <!-- sidebar-end -->
+        <div class="wrapper">
+            <div class="inner-part">
+                <header class="header_area">
+                    <button class="menubtn">
+                        <img src="{% static 'images/menubar.svg' %}">
+                        <span>Menu</span>
+                    </button>
+                    <div class="dropdown ms-lg-auto">
+                        <button class="btn dropdown-toggle profile_custom" type="button" id="dropdownMenu2" data-bs-toggle="dropdown">
+                            <div class="profiles">
+                                {% if request.user.userprofile.avatar %}
+                                    <img src="{% get_media_prefix %}{{request.user.userprofile.avatar}}">
+                                {% else %}
+                                    <img src="{% static 'images/profile.jpg' %}">
+                                {% endif %}
+                            </div>
+                            <span class="base_user_name">{{request.user}}</span>
+                            <span class="hidden_user d-none">{{request.user.id}}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</button></a></li>
+                        </ul>
+                    </div>
+                </header>
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal-upload -->
+    <div class="modal fade custom_modal" id="uploadmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog fixed-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="myform" method="POST" action="{% url 'savepdf' %}"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="modal-body">
+                    <div class="uploading-box">
+                        <div class="mt-2 mb-2 " id="dropzone" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+                            <label class="custom-file">
+                                <input type="file" name="myfile" class="upload_mutiple_files" multiple accept=".pdf, .epub, .mobi">
+                                <img src="{% static 'images/drag.svg' %}">
+                                <h2>Select a file to upload</h2>
+                                <p>or drag and drop it here</p>
+                            </label>
+                        </div>
+                        <div class="error_msg d-none"><p>Please select files to upload.</p></div>
+
+                        <div class="uploaded_files">
+                           
+                        </div>
+
+                        {% comment %} <div class="mb-3 mt-3">
+                            <div class="text-center mb-2">OR</div>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                        <div class="files-area hidebox">
+                            <button type="button" class="btn-close btn-close-custom"></button>
+                            <h6>Prototype file.pdf</h6>
+                            <p>10kb</p>
+                            <div class="d-flex align-items-center">
+                                <div class="progress w-100" style=" height: 10px;">
+                                    <div class="progress-bar bg-done" role="progressbar" style="width: 100%; height: 10px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="progress-text ms-2">100%</div>
+                            </div>
+                        </div>
+                        <div class="files-area mt-3">
+                            <button type="button" class="btn-close btn-close-custom"></button>
+                            <h6>Prototype file-new.pdf</h6>
+                            <p>10kb</p>
+                            <div class="d-flex align-items-center">
+                                <div class="progress w-100" style=" height: 10px;">
+                                    <div class="progress-bar bg-blue" role="progressbar" style="width: 35% ; height: 10px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="progress-text ms-2">35%</div>
+                            </div>
+                        </div> {% endcomment %}
+                        <div class="text-center"><button type="button" class="btn bg-done upload_files_pdf_epub text-white mt-3">Done</button></div>
+                    </div>
+                    <div class="sucess-box">
+                        <div class="mt-2">
+                            <div class="success-file">
+                                <img src="{% static 'images/check.svg' %}">
+                                <h2>Files have been uploaded Successfully</h2>
+                                <button class="btn bg-done text-white reloadpage" data-bs-dismiss="modal">ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal-upload-end -->
+
+
+    <!--Download Text File Modal-->
+    <div class="modal fade" id="download_file_modal" tabindex="-1" role="dialog" aria-labelledby="download_file_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Split <span class="file_name"></span></h5>
+              <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>This file is <span class="file_length"></span> characters long. Would you like to split it into chunks?</p>
+            </div>
+            <div class="modal-footer file_url">
+              <button type="button" class="btn btn-secondary divide_chunks">Yes</button>
+              <button type="button" class="btn btn-secondary download_file" data-bs-dismiss="modal">No</button>
+              {% comment %} <button type="button" class="btn btn-secondary download_file"><a href="">No</a></button> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--End Download Text File Modal-->
+
+     <!--Download Text File Modal-->
+     <div class="modal fade" id="converting_status" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="converting_status" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            {% comment %} <div class="modal-header">
+            <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> {% endcomment %}
+            <div class="modal-body ">
+                
+                <div class="parent-loader fixed-remove" >
+                    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div> 
+                <div class="text">
+                    <h1>
+                          <span class="words-wrapper text-center d-block">
+                            <b class="is-visible">Processing...</b>
+                          </span>
+                     <h1>
+                  </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--End Download Text File Modal-->
+
+
+
+
+
+    <!--Customize Audios modal -->
+    <div class="modal fade" id="audio_file_modal" tabindex="-1" role="dialog" aria-labelledby="audio_file_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Voice setting for <span class="audio_file_name"></span></h5>
+              <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <div class="mb-3">
+                    <div><label for="voice_">Voices</label></div>
+                    <div>
+                        <select class="voices_opt p-1">
+                            <option value="AI3oN5cvwest2S8yemh5">cloned/Esmée</option>
+                            <option value="6tim7E0dxdLAvCdloeiw">cloned/Esmée (higher pitched)</option>
+                            <option value="fYNoQisJYaUFRPfrKjgD">cloned/Todd Cowing</option>
+                            <option value="XTrCLAsGIOD4DYRKD8GQ">cloned/Troy Thiel</option>
+                            <option value="21m00Tcm4TlvDq8ikWAM">premade/Rachel</option>
+                            <option value="AZnzlk1XvdvUeBnXmlld">premade/Domi</option>
+                            <option value="EXAVITQu4vr4xnSDxMaL">premade/Bella</option>
+                            <option value="ErXwobaYiN019PkySvjV">premade/Antoni</option>
+                            <option value="MF3mGyEYCl7XYWbV9V6O">premade/Elli</option>
+                            <option value="TxGEqnHWrfWFTfGW9XjX">premade/Josh</option>
+                            <option value="VR6AewLTigWG4xSOukaG">premade/Arnold</option>
+                            <option value="pNInz6obpgDQGcFmaJgB">premade/Adam</option>
+                            <option value="yoZ06aMxZJJ28mfd3POQ">premade/Sam</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div><label for="stability">Stability</label></div>
+                    <div><input type="range" id="stability" name="stability" min="0" max="1" step="0.01" value="0.5">
+                        <span id="stabilityValue">50%</span>
+                    </div>
+                </div>
+                <div>
+                     <div><label for="similarity">Clarity + Similarity Enhancement</label> </div>
+                     <div><input type="range" id="similarity" name="similarity" min="0" max="1" value="0.75" step="0.01"> 
+                          <span id="similarityValue">75%</span>
+                    </div>
+                </div>                  
+                <div>
+                     <div><button type="button" id="default_value" class="btn btn-secondary">To Default</button>
+                </div>                  
+            </div>
+            <div class="modal-footer file_url">
+              <button type="button" class="btn btn-green generate_voice" style="color:white;">Generate Voice</button>
+              {% comment %} <button type="button" class="btn btn-secondary download_file" data-bs-dismiss="modal">No</button> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--End Customize Audios modal-->
+
+
+    <!-- Modal-generate-html -->
+    <div class="modal fade custom_modal" id="generatehtml" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog fixed-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="generate-box">
+                        <div class="mt-2">
+                            <div class="generate-file">
+                                <div class="lds-spinner">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                <h2>Generating Html files...</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sucess-box">
+                        <div class="mt-2">
+                            <div class="success-file">
+                                <img src="{% static 'images/check.svg' %}">
+                                <h2>Generated HTML files have been move to HTML files section</h2>
+                                <a class="btn bg-done text-white mt-3 reloadpage" href="html-files.html">ok</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ {% else %}
+
+    <div class="login">
+        <img src="{% static 'images/logo.svg' %}">
+        <h1>Welcome!</h1>
+
+        <div class="container mt-5">
+          <div class="row justify-content-center">
+              <div class="col-lg-5 col-md-7">
+                  <div class="content-form">
+                      <p>Login Here</p>
+                      <p class="small-text">Enter your email and password</p>
+                      <form method="post" action="{% url 'login' %}">
+                          {% csrf_token %}
+                        <div class="input-group mb-2 mt-3 mr-sm-2">
+                            <span class="input-group-text" ><img src="{% static 'images/email.svg' %}"></span>
+                            <input type="text" class="form-control" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group mb-2 mt-3 mr-sm-2">
+                            <span class="input-group-text" ><img src="{% static 'images/key.svg' %}"></span>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+                        <a><button type="submit" class="btn btn-primary new-btn">Log In</button></a>
+                      </form>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            {% if message.tags %}
+                $.notify('{{ message }}', "{{message.tags}}");
+            {% else %}
+                $.notify('{{ message }}');
+            {% endif %}
+        {% endfor %}
+    </script>
+{% endif %}
+
+
+{% endif %}
+
+
+    {% comment %} {% if messages %}
+        <script>
+            
+                {% if tag %}
+                    $.notify('{{ messages }}', "{{tag}}");
+                {% else %}
+                    $.notify('{{ messages }}');
+                {% endif %}
+            
+        </script>
+    {% endif %}
+
+
+ {% endif %} {% endcomment %}
+
+
+
+</body>
+</html>
